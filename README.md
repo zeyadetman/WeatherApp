@@ -1,5 +1,5 @@
 # WeatherApp
-Want to find the weather right now? try [this](zeyadetman.me/WeatherApp/)
+Want to find the weather right now? try [this](https://zeyadetman.me/WeatherApp/)
 
 ## NOTE
 if you faced some issues about CORS, try to open chrome that way:
