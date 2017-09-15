@@ -9,29 +9,26 @@ if ("geolocation" in navigator) {
 }
 
 function getter(lat, lon) {
-    var data = null;
-
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-
-    xhr.addEventListener("readystatechange", function() {
-        if (this.readyState === 4) {
-            console.log(JSON.parse(this.responseText));
-            var res = JSON.parse(this.responseText);
-            $(".position").html(`${res['name']}, ${res['sys']['country']}`);
-            cede = res['main']['temp'];
-            $(".tempdeg").html(`${res['main']['temp']}`);
-            $(".tempertext").html(`${res['weather'][0]['main']}, ${res['weather'][0]['description']}`);
-            $(".weather-icon").attr("src", res['weather'][0]['icon']);
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": `https://fcc-weather-api.glitch.me/api/current?lat=${lat}&lon=${lon}`,
+        "method": "GET",
+        "headers": {
+            "cache-control": "no-cache",
+            "postman-token": "e38a0378-abf7-2842-b83c-942559ffa361"
         }
+    }
+
+    $.ajax(settings).done(function(response) {
+        console.log(response);
+        var res = response;
+        $(".position").html(`${res['name']}, ${res['sys']['country']}`);
+        cede = res['main']['temp'];
+        $(".tempdeg").html(`${res['main']['temp']}`);
+        $(".tempertext").html(`${res['weather'][0]['main']}, ${res['weather'][0]['description']}`);
+        $(".weather-icon").attr("src", res['weather'][0]['icon']);
     });
-
-    xhr.open("GET", `https://fcc-weather-api.glitch.me/api/current?lat=${lat}&lon=${lon}`);
-    xhr.setRequestHeader("cache-control", "no-cache");
-    xhr.setRequestHeader("postman-token", "9a179417-12a2-e0b5-6a05-6fa048730475");
-
-    xhr.send(data);
-    console.log(lat, lon);
 }
 
 function change() {
